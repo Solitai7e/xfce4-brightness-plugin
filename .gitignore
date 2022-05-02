@@ -1,0 +1,11 @@
+/build
+/configure
+/GNUmakefile
+/autom4te.cache
+/aclocal.m4
+/config.log
+/config.status
+/src.vala
+/gresources.c
+*.o
+*.so

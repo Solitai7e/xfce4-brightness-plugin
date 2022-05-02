@@ -1,0 +1,76 @@
+<interface>
+  <template class="SettingsDialog" parent="GtkDialog">
+    <property name="title">Brightness Panel Plugin</property>
+
+    <child internal-child="vbox"><object class="GtkBox">
+      <property name="margin">8</property>
+      <property name="spacing">8</property>
+
+
+      <child><object class="GtkFrame">
+        <property name="label">Popup</property>
+
+        <child><object class="GtkBox">
+          <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+          <property name="margin">4</property>
+
+
+          <child><object class="GtkCheckButton">
+            <property name="label">Show red slider</property>
+
+            <property name="active"
+                      bind-source="SettingsDialog"
+                      bind-property="value-show-red-slider"
+                      bind-flags="bidirectional|sync-create"
+            ></property>
+          </object></child>
+
+          <child><object class="GtkCheckButton">
+            <property name="label">Show green slider</property>
+
+            <property name="active"
+                      bind-source="SettingsDialog"
+                      bind-property="value-show-green-slider"
+                      bind-flags="bidirectional|sync-create"
+            ></property>
+          </object></child>
+
+          <child><object class="GtkCheckButton">
+            <property name="label">Show blue slider</property>
+
+            <property name="active"
+                      bind-source="SettingsDialog"
+                      bind-property="value-show-blue-slider"
+                      bind-flags="bidirectional|sync-create"
+            ></property>
+          </object></child>
+
+          <child><object class="GtkCheckButton">
+            <property name="label">Show brightness slider</property>
+
+            <property name="active"
+                      bind-source="SettingsDialog"
+                      bind-property="value-show-brightness-slider"
+                      bind-flags="bidirectional|sync-create"
+            ></property>
+          </object></child>
+        </object></child>
+      </object></child>
+
+      <child><object class="GtkFrame">
+        <property name="label">Miscellaneous</property>
+
+        <child><object class="GtkCheckButton">
+          <property name="label">Apply on startup</property>
+          <property name="margin">4</property>
+
+          <property name="active"
+                    bind-source="SettingsDialog"
+                    bind-property="value-apply-on-startup"
+                    bind-flags="bidirectional|sync-create"
+          ></property>
+        </object></child>
+      </object></child>
+    </object></child>
+  </template>
+</interface>

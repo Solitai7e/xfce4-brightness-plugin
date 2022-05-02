@@ -1,0 +1,66 @@
+<interface>
+  <template class="PopupMenu" parent="GtkMenu">
+    <property name="width-request">250</property>
+
+    <child><object class="SliderMenuItem">
+      <property name="value"
+        bind-source="PopupMenu"
+        bind-property="value-red"
+        bind-flags="bidirectional|sync-create"
+      ></property>
+
+      <property name="visible"
+        bind-source="PopupMenu"
+        bind-property="show-slider-red"
+        bind-flags="bidirectional|sync-create"
+      ></property>
+    </object></child>
+
+    <child><object class="SliderMenuItem">
+      <property name="value"
+        bind-source="PopupMenu"
+        bind-property="value-green"
+        bind-flags="bidirectional|sync-create"
+      ></property>
+
+      <property name="visible"
+        bind-source="PopupMenu"
+        bind-property="show-slider-green"
+        bind-flags="bidirectional|sync-create"
+      ></property>
+    </object></child>
+
+    <child><object class="SliderMenuItem">
+      <property name="value"
+        bind-source="PopupMenu"
+        bind-property="value-blue"
+        bind-flags="bidirectional|sync-create"
+      ></property>
+
+      <property name="visible"
+        bind-source="PopupMenu"
+        bind-property="show-slider-blue"
+        bind-flags="bidirectional|sync-create"
+      ></property>
+    </object></child>
+
+    <child><object class="SliderMenuItem">
+      <property name="value"
+        bind-source="PopupMenu"
+        bind-property="value-brightness"
+        bind-flags="bidirectional|sync-create"
+      ></property>
+
+      <property name="visible"
+        bind-source="PopupMenu"
+        bind-property="show-slider-brightness"
+        bind-flags="bidirectional|sync-create"
+      ></property>
+    </object></child>
+
+    <child><object class="GtkMenuItem">
+      <property name="label">Settings...</property>
+      <signal name="activate" handler="on_settings_button_activate"/>
+    </object></child>
+  </template>
+</interface>

@@ -1,0 +1,88 @@
+.SUFFIXES:
+
+
+
+
+prefix      := @prefix@
+exec_prefix := @exec_prefix@
+libdir      := @libdir@
+datarootdir := @datarootdir@
+
+xfce4_panel_plugins_dir     := $(libdir)/xfce4/panel/plugins
+xfce4_panel_plugin_libs_dir := $(datarootdir)/xfce4/panel/plugins
+
+
+CC           := @CC@
+LD           := @LD@
+VALAC        := @VALAC@
+COMPILE_GRES := @COMPILE_GRES@
+
+
+CFLAGS  := @CFLAGS@ @libbrightness_CFLAGS@
+LDFLAGS := @LDFLAGS@ @libbrightness_LIBS@
+
+VALAFLAGS := @VALAFLAGS@
+
+
+
+
+c_headers := $(wildcard src/*.h)
+c_sources := $(wildcard src/*.c)
+
+vala_sources := $(wildcard src/*.vala)
+
+ui_files := $(wildcard src/*.ui)
+
+
+vala_objdir := src.vala
+
+vala_c_header  := $(vala_objdir)/vala.h
+vala_c_sources := $(vala_sources:src/%.vala=$(vala_objdir)/%.c)
+
+gres_c_source := gresources.c
+
+
+c_objs    := $(c_sources:.c=.o)
+vala_objs := $(vala_c_sources:.c=.o)
+gres_obj  := $(gres_c_source:.c=.o)
+
+target := libbrightness.so
+
+
+
+
+$(target): $(c_objs) $(vala_objs) $(gres_obj)
+	$(LD) -o $@ $^ $(LDFLAGS)
+
+$(c_objs): $(c_headers) $(vala_c_header)
+
+src/%.o: src/%.c
+	$(CC) $(CFLAGS) -include $(vala_c_header) -c $< -o $@
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(vala_c_header) $(vala_c_sources) &: $(vala_sources) gresources.xml
+	$(VALAC) $(VALAFLAGS) -C -H $(vala_c_header) -b src -d $(vala_objdir) \
+	         --gresources=gresources.xml --gresourcesdir=src              \
+	         $(vala_sources) &&                                           \
+	                                                                      \
+	touch -cm -t 197001010000.01 $(vala_sources)
+
+$(gres_c_source): gresources.xml $(ui_files)
+	$(COMPILE_GRES) --sourcedir=src --generate --target=$@ gresources.xml
+
+
+install:
+	cp brightness.desktop $(xfce4_panel_plugins_dir)
+	cp $(target)          $(xfce4_panel_plugin_libs_dir)
+
+uninstall:
+	rm -f $(xfce4_panel_plugins_dir)/brightness.desktop \
+	      $(xfce4_panel_plugin_libs_dir)/$(target)
+
+clean:
+	rm -rf $(target) $(vala_objdir) $(gres_c_source) $(gres_obj) src/*.o
+
+
+.PHONY: install uninstall clean

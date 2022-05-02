@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/a872cc4b9c1f">
+    <file compressed="true" preprocess="xml-stripblanks">popup-menu.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">settings-dialog.ui</file>
+  </gresource>
+</gresources>

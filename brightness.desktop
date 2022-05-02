@@ -1,0 +1,9 @@
+[Xfce Panel]
+Type=X-XFCE-PanelPlugin
+Encoding=UTF-8
+Name=Brightness
+Comment=Adjust software brightness
+Icon=display-brightness-symbolic
+X-XFCE-Module=brightness
+X-XFCE-Internal=false
+X-XFCE-API=2.0
